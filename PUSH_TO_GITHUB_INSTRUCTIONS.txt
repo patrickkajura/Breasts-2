@@ -1,0 +1,44 @@
+# Instructions to Push Repository to GitHub
+
+## Step 1: Create Repository on GitHub
+1. Go to https://github.com and log in to your account
+2. Click the "+" icon in the top right corner and select "New repository"
+3. Give your repository a name (e.g., "histopathological-breast-cancer-model")
+4. Optionally add a description
+5. Select "Public" or "Private" as per your preference
+6. Do NOT initialize with a README, .gitignore, or license (since you already have these)
+7. Click "Create repository"
+
+## Step 2: Link Local Repository to Remote and Push
+After creating the repository on GitHub, you'll get a URL for the repository. Copy that URL and run these commands in your terminal/command prompt:
+
+```bash
+cd "C:\Users\patri\Documents\Health_ai\Multi_Cancer\Breast Cancer"
+git remote add origin [YOUR_REPOSITORY_URL_FROM_GITHUB]
+git branch -M main
+git push -u origin main
+```
+
+Replace [YOUR_REPOSITORY_URL_FROM_GITHUB] with the actual URL you copied from GitHub.
+
+## Example:
+If your GitHub repository URL is:
+https://github.com/yourusername/histopathological-breast-cancer-model.git
+
+Then run:
+```bash
+cd "C:\Users\patri\Documents\Health_ai\Multi_Cancer\Breast Cancer"
+git remote add origin https://github.com/yourusername/histopathological-breast-cancer-model.git
+git branch -M main
+git push -u origin main
+```
+
+## Verification
+After pushing, you can verify the files are on GitHub by visiting your repository page on GitHub.com.
+
+Note: Your histopathological breast cancer model repository has been properly prepared with:
+- All essential code files (app.py, breast_cancer_model.py, prediction_utils.py, etc.)
+- Documentation (README.md, DEPLOYMENT_README.md)
+- Requirements files
+- Proper .gitignore that excludes large model and image files
+- Initial commit with descriptive message

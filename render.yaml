@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: breast-cancer-classifier
+    runtime: python
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 wsgi:application --timeout 120
+    healthCheckPath: /
+    envVars:
+      - key: PYTHONPATH
+        value: /opt/render/project/src
