@@ -1,0 +1,117 @@
+# Breast Cancer Classification Model
+
+This project implements a deep learning model for breast cancer classification using PyTorch and ResNet18. The model distinguishes between benign and malignant breast cancer samples.
+
+## Dataset Structure
+
+The model expects the following folder structure:
+```
+C:\Users\patri\Documents\Health ai\Multi Cancer\Breast Cancer\
+├── breast_benign\      # Images of benign cases
+├── breast_malignant\   # Images of malignant cases
+├── breast_cancer_model.py     # Main training script
+├── run_training.py            # Script to run training
+├── prediction_utils.py        # Utilities for making predictions
+├── app.py                   # Web application with Flask
+├── best_breast_cancer_model.pth    # Best performing model (after training)
+└── final_breast_cancer_model.pth   # Final model with training history (after training)
+```
+
+## Training the Model
+
+To train the model, run:
+```bash
+python run_training.py
+```
+
+The training process will:
+- Load the dataset from the breast_benign and breast_malignant folders
+- Split the data into training and validation sets (80/20 split)
+- Train a ResNet18 model with data augmentation
+- Save the best model based on validation accuracy
+- Save the final model with complete training history
+- Display training progress with loss and accuracy metrics
+
+## Web Application
+
+The project includes a Flask web application for easy model deployment:
+
+### Running the Web App
+```bash
+python app.py
+```
+
+Then navigate to `http://localhost:5000` to access the web interface.
+
+### Web API Endpoints
+- `GET /` - Main interface for uploading and classifying images
+- `POST /predict` - Process uploaded image and return classification
+- `POST /api/predict` - Programmatic API access to the model
+
+## Making Predictions
+
+After training, you can use the prediction utilities:
+
+### Single Image Prediction
+```python
+from prediction_utils import predict_image
+
+# Predict a single image
+predicted_class, confidence = predict_image("path/to/your/image.jpg")
+```
+
+### Batch Prediction
+```python
+from prediction_utils import batch_predict
+
+# Predict all images in a folder
+results = batch_predict("path/to/your/image/folder")
+```
+
+## Model Architecture
+
+- Base Model: ResNet18 (pre-trained on ImageNet)
+- Custom Classifier: Linear layer adjusted for 2-class classification
+- Input Size: 224x224 RGB images
+- Data Augmentation: Random horizontal flip, rotation, and color jitter
+
+## Training Configuration
+
+- Optimizer: Adam with learning rate 0.0001
+- Loss Function: Cross Entropy Loss
+- Batch Size: 32
+- Epochs: 20 (can be adjusted in the script)
+- Learning Rate Scheduler: StepLR (decreases LR every 7 epochs)
+
+## Files Generated After Training
+
+1. `best_breast_cancer_model.pth` - Model with the highest validation accuracy
+2. `final_breast_cancer_model.pth` - Final model with complete training history
+3. Training metrics and validation scores are printed during training
+
+## Requirements
+
+- Python 3.7+
+- PyTorch
+- Torchvision
+- Pillow
+- NumPy
+- Scikit-learn
+- Flask (for web application)
+
+Install requirements with:
+```bash
+pip install torch torchvision pillow numpy scikit-learn flask
+```
+
+## Deployment
+
+For deployment instructions to platforms like Render, see `DEPLOYMENT_README.md`.
+
+## Notes
+
+- The model uses transfer learning with a pre-trained ResNet18 backbone
+- Data augmentation techniques are applied during training to improve generalization
+- Validation accuracy is used to determine the best model checkpoint
+- The model saves both the best performing model and the final model with complete training history
+- A Flask web application is included for easy deployment and API access
